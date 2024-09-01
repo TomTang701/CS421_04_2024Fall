@@ -1,0 +1,120 @@
+### User Report: How to Use the Tiny Shell (tish)
+
+#### **Introduction**
+Welcome to the Tiny Shell (tish), a lightweight shell program designed to run programs in both foreground and background modes, manage background jobs, and handle basic shell commands. This guide will walk you through how to use tish effectively.
+
+---
+
+#### **Running the Program**
+1. **Start tish:**
+   - After compiling the program, run it from your command line or terminal by executing the `tish` binary.
+   - You will see a prompt like this:
+     ```
+     tish>>
+     ```
+
+2. **Input Commands:**
+   - Type commands after the prompt to interact with the shell.
+   - Commands can be either external programs (like `notepad`) or internal commands (like `bye`).
+
+---
+
+#### **Commands Overview**
+
+1. **Running Programs in Foreground Mode:**
+   - Type the command you want to run, followed by any necessary arguments.
+   - Example:
+     ```
+     tish>> notepad
+     ```
+   - This opens the Notepad application. The shell will not return the prompt until you close Notepad.
+
+2. **Running Programs in Background Mode:**
+   - Add an `&` at the end of the command to run it in the background.
+   - Example:
+     ```
+     tish>> notepad &
+     ```
+   - This opens Notepad in the background, allowing you to continue using tish. The shell will immediately return the prompt, and you will see a message indicating the process ID (PID) of the background job.
+
+3. **Listing Background Jobs:**
+   - Use the `jobs` command to list all currently running background jobs.
+   - Example:
+     ```
+     tish>> jobs
+     ```
+   - Output will show the PID and command name of each background job:
+     ```
+     Background jobs:
+     1234 notepad
+     1235 calc
+     ```
+
+4. **Killing a Background Job:**
+   - Use the `kill` command followed by the PID of the job you want to terminate.
+   - Example:
+     ```
+     tish>> kill 1234
+     ```
+   - The shell will terminate the specified background job and confirm the action:
+     ```
+     tish: killed process 1234
+     ```
+
+5. **Exiting the Shell:**
+   - Type `bye` to exit the shell. This command also terminates all running background jobs.
+   - Example:
+     ```
+     tish>> bye
+     ```
+   - The shell will display messages for each terminated job and then exit.
+
+---
+
+#### **Example Session**
+
+Here’s an example of how a typical session with tish might look:
+
+```bash
+tish>> notepad &         # Start Notepad in the background
+tish: 1234 started in background
+
+tish>> calc &            # Start Calculator in the background
+tish: 1235 started in background
+
+tish>> jobs              # List all background jobs
+Background jobs:
+1234 notepad
+1235 calc
+
+tish>> kill 1234         # Kill the Notepad process
+tish: killed process 1234
+
+tish>> jobs              # List remaining background jobs
+Background jobs:
+1235 calc
+
+tish>> bye               # Exit the shell, killing all remaining background jobs
+tish: killed process 1235
+```
+
+---
+
+#### **Handling Errors**
+- If you type an unknown command, tish will notify you:
+  ```
+  tish: command not found: foo
+  ```
+- If you try to kill a non-existent process:
+  ```
+  tish: no such process 1234
+  ```
+
+---
+
+#### **Tips**
+- **Use the `&` symbol** to run programs in the background and keep using the shell without waiting.
+- **Check your background jobs** frequently with the `jobs` command to manage running processes.
+- **Always terminate** your background jobs before exiting tish using the `bye` command to ensure all processes are properly closed.
+
+Enjoy using tish! It’s a simple yet powerful way to manage your programs and processes.
